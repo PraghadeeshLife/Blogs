@@ -47,9 +47,11 @@ img = Image.open('prag.jpg')
 imggray = img.convert('LA')
 plt.figure(figsize=(9, 16))
 plt.imshow(imggray);
+```
+
 ![image](https://user-images.githubusercontent.com/102030901/226106100-d2e54a20-a31b-4980-9215-0d22e283a531.png)
 
-
+```
 imgmat = np.array(list(imggray.getdata(band=0)), float)
 
 imgmat.shape = (imggray.size[1], imggray.size[0])
