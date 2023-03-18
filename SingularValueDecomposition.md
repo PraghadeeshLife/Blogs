@@ -57,25 +57,39 @@ imgmat = np.array(list(imggray.getdata(band=0)), float)
 imgmat.shape = (imggray.size[1], imggray.size[0])
 imgmat = np.matrix(imgmat)
 U, sigma, V = np.linalg.svd(imgmat)
+```
 
 This performs the Singular Value Decomposition (SVD) on the image matrix using the linalg.svd() function from NumPy's linear algebra module. The result is three matrices: U, which contains the left singular vectors; sigma, which contains the singular values; and V, which contains the right singular vectors.
 
+```
 rank = 25
 reconstimg = np.matrix(U[:, :rank]) * np.diag(sigma[:rank]) * np.matrix(V[:rank, :])
 plt.figure(figsize=(9,16))
 plt.imshow(reconstimg, cmap='gray')
+```
 
+![image](https://user-images.githubusercontent.com/102030901/226106249-563cdbab-0249-4374-9970-f44120eb443b.png)
+
+```
 rank = 50
 reconstimg = np.matrix(U[:, :rank]) * np.diag(sigma[:rank]) * np.matrix(V[:rank, :])
 plt.figure(figsize=(9,16))
 plt.imshow(reconstimg, cmap='gray')
+```
+![image](https://user-images.githubusercontent.com/102030901/226106307-c5b0f2f2-adfb-4b38-887b-c111d59e1e60.png)
 
+```
 rank = 100
 reconstimg = np.matrix(U[:, :rank]) * np.diag(sigma[:rank]) * np.matrix(V[:rank, :])
 plt.figure(figsize=(9,16))
 plt.imshow(reconstimg, cmap='gray')
+```
+![image](https://user-images.githubusercontent.com/102030901/226106352-a78626a0-b005-496d-a71c-734d946fd28c.png)
 
+```
 rank = 200
 reconstimg = np.matrix(U[:, :rank]) * np.diag(sigma[:rank]) * np.matrix(V[:rank, :])
 plt.figure(figsize=(9,16))
 plt.imshow(reconstimg, cmap='gray')
+```
+![image](https://user-images.githubusercontent.com/102030901/226106391-eabc31e0-21f8-4aef-8d36-c058fe9b4a87.png)
