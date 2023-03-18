@@ -33,3 +33,47 @@ By keeping only the top few values of Σ, we can effectively discard the weaker 
 We can then reconstruct the compressed image by computing the product UΣ'V^T. The resulting image will have a reduced size and retain most of the essential features of the original image.
 
 
+```
+%matplotlib inline
+import matplotlib.pyplot as plt
+import numpy as np
+import time
+
+from PIL import Image, ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
+
+
+img = Image.open('prag.jpg')
+imggray = img.convert('LA')
+plt.figure(figsize=(9, 16))
+plt.imshow(imggray);
+![image](https://user-images.githubusercontent.com/102030901/226106100-d2e54a20-a31b-4980-9215-0d22e283a531.png)
+
+
+imgmat = np.array(list(imggray.getdata(band=0)), float)
+
+imgmat.shape = (imggray.size[1], imggray.size[0])
+imgmat = np.matrix(imgmat)
+U, sigma, V = np.linalg.svd(imgmat)
+
+This performs the Singular Value Decomposition (SVD) on the image matrix using the linalg.svd() function from NumPy's linear algebra module. The result is three matrices: U, which contains the left singular vectors; sigma, which contains the singular values; and V, which contains the right singular vectors.
+
+rank = 25
+reconstimg = np.matrix(U[:, :rank]) * np.diag(sigma[:rank]) * np.matrix(V[:rank, :])
+plt.figure(figsize=(9,16))
+plt.imshow(reconstimg, cmap='gray')
+
+rank = 50
+reconstimg = np.matrix(U[:, :rank]) * np.diag(sigma[:rank]) * np.matrix(V[:rank, :])
+plt.figure(figsize=(9,16))
+plt.imshow(reconstimg, cmap='gray')
+
+rank = 100
+reconstimg = np.matrix(U[:, :rank]) * np.diag(sigma[:rank]) * np.matrix(V[:rank, :])
+plt.figure(figsize=(9,16))
+plt.imshow(reconstimg, cmap='gray')
+
+rank = 200
+reconstimg = np.matrix(U[:, :rank]) * np.diag(sigma[:rank]) * np.matrix(V[:rank, :])
+plt.figure(figsize=(9,16))
+plt.imshow(reconstimg, cmap='gray')
